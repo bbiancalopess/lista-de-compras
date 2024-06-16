@@ -4,21 +4,25 @@
 using std::cout;
 using std::endl;
 
-Item::Item(const string& name, const double& price, const int& quantity) 
-    : name(name), price(price), quantity(quantity) {}
+Item::Item(const int& id, const string& name, const double& price, const int& quantity) 
+    : id(id), name(name), price(price), quantity(quantity) {}
+
+int Item::getId() {
+    return this->id;
+}
 
 string Item::getName() {
-    return name;
+    return this->name;
 }
 
 double Item::getPrice() {
-    return price;
+    return this->price;
 }
 
 int Item::getQuantity() {
-    return quantity;
+    return this->quantity;
 }
 
 void Item::display() {
-    cout << "Item: " << name << ", Price: " << price << ", Quantity: " << quantity << endl;
+    cout <<  this->id << ". Item: " << this->name << ", Valor: " << this->price << ", Quantidade: " << this->quantity << endl;
 }

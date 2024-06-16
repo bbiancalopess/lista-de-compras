@@ -11,10 +11,13 @@ class ShoppingList {
         vector<Item*> items;
 
     public:
+        ShoppingList();
         ~ShoppingList();
 
         void addItem(Item* item);
-        void displayItems();
+        void removeItem(int id);
+        int displayItems();
+        int getLastId();
 };
 
 #endif 

@@ -11,7 +11,7 @@ class PerishableItem : public Item {
         string expirationDate;
 
     public:
-        PerishableItem(const string& name, const double& price, const int& quantity, const string& expirationDate);
+        PerishableItem(const int& id, const string& name, const double& price, const int& quantity, const string& expirationDate);
         
         string getExpirationDate();
         void display() override;

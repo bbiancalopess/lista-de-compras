@@ -18,37 +18,85 @@ string getInput(string prompt) {
     return input;
 }
 
+void clearScreen() {
+    #ifdef _WIN32
+        std::system("cls");
+    #else
+        std::system("clear");
+    #endif
+}
+
+void getTitle() {
+    cout << "-----------------------------------------------" << endl
+        << "---------------LISTA DE COMPRAS----------------" << endl
+        << "-----------------------------------------------" << endl;
+}
+
 void System::startTheSystem() {
-    ShoppingList* shoppingList;
+    ShoppingList* shoppingList = new ShoppingList();
 
     while (true) {
-        cout << "1. Add Item\n2. Add Perishable Item\n3. Display Items\n4. Exit\nChoose an option: ";
-        string choice = getInput("Choose an option: ");
+        begining:
+        clearScreen();
+        getTitle();
+        cout << "------------------- OPÇÕES --------------------" << endl
+             << "1. Adicionar item " << endl 
+             << "2. Adicionar item perecível" << endl
+             << "3. Visualizar itens" << endl
+             << "4. Remover item" << endl
+             << "5. Sair" << endl;
+        string choice = getInput("Escolha uma opção: ");
+        clearScreen();
 
-        if (choice == "4") {
+        if (choice == "5") {
             break;
         }
-
-        string name = getInput("Enter name: ");
-        string price = getInput("Enter price: ");
-        string quantity = getInput("Enter quantity: ");
         
         if (choice == "1") {
-            cout << "1" << endl;
-            Item* item = new Item(name, stod(price), stoi(quantity));
-            cout << "2" << endl;
+            cout << "------------------- Digite as informações do item -------------------------" << endl;
+            cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
+            string name = getInput("Digite o nome: ");
+            if(name == "0") goto begining;
+            string price = getInput("Digite o valor: ");
+            if(price == "0") goto begining;
+            string quantity = getInput("Digite a quantidade: ");
+            if(quantity == "0") goto begining;
+            Item* item = new Item((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity));
+            cout << shoppingList->getLastId() << endl;
             shoppingList->addItem(item);
-            cout << "3" << endl;
+            clearScreen();
         } else if (choice == "2") {
-            string expirationDate = getInput("Enter expiration date: ");
-            PerishableItem* perishableItem = new PerishableItem(name, stod(price), stoi(quantity), expirationDate);
+            cout << "---------------------- Digite as informações do item ----------------------" << endl;
+            cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
+            string name = getInput("Digite o nome: ");
+            if(name == "0") goto begining;
+            string price = getInput("Digite o valor: ");
+            if(price == "0") goto begining;
+            string quantity = getInput("Digite a quantidade: ");
+            if(quantity == "0") goto begining;
+            string expirationDate = getInput("Digite a data de validade: ");
+            if(expirationDate == "0") goto begining;
+            PerishableItem* perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
             shoppingList->addItem(perishableItem);
+            clearScreen();
         } else if (choice == "3") {
+            cout << "------------------------ ITENS ------------------------" << endl;
+            int spent_value = shoppingList->displayItems();
+            cout << "Valor total gasto: " << spent_value << endl;
+            cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
+            cin.get();
+            clearScreen();
+            
+        } else if (choice == "4") {
+            cout << "------------------ Qual item você deseja remover? -----------------" << endl;
             shoppingList->displayItems();
+            int item_id = stoi(getInput("Escolha uma opção ou digite '0' para voltar para o menu de opções: "));
+            if (item_id == 0) goto begining;
+            shoppingList->removeItem(item_id);
+            clearScreen();
         } else {
-            cout << "Invalid option!" << endl;
+            cout << "------------- Opção inválida! ------------------" << endl;
         }
     }
-
-    shoppingList->displayItems();
+    shoppingList->~ShoppingList();
 }

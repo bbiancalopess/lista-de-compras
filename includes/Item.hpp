@@ -7,14 +7,16 @@ using std::string;
 
 class Item {
     protected:
+        int id;
         string name;
         double price;
         int quantity;
 
     public:
-        Item(const string& name, const double& price, const int& quantity);
+        Item(const int& id, const string& name, const double& price, const int& quantity);
         virtual ~Item() = default;
 
+        int getId();
         string getName();
         double getPrice();
         int getQuantity();
