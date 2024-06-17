@@ -11,10 +11,6 @@ int Item::getId() {
     return this->id;
 }
 
-string Item::getName() {
-    return this->name;
-}
-
 double Item::getPrice() {
     return this->price;
 }

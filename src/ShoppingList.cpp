@@ -2,12 +2,12 @@
 #include <iostream>
 
 ShoppingList::ShoppingList(){
-    this->items = {};
+    this->items = {}; // inicializa a lista como vazia
 }
 
 ShoppingList::~ShoppingList() {
-    for (Item* item : items) {
-        delete item;
+    for (Item* item : items) { // itera pelos itens 
+        delete item; // libera a memória de cada item
     }
 }
 
@@ -17,30 +17,26 @@ void ShoppingList::addItem(Item* item) {
 
 int ShoppingList::displayItems() {
     double spent_value = 0;
-    if (this->items.size() == 0) std::cout << "Não há itens na lista." << std::endl;
+    if (this->items.size() == 0) // verifica se a lista está vazia
+        std::cout << "Não há itens na lista." << std::endl; 
     for (Item* item : this->items) {
-        spent_value += item->getQuantity() * item->getPrice();
+        spent_value += item->getQuantity() * item->getPrice(); // incrementa o valor gasto
         item->display();
     }
     return spent_value;
-    //std::cout << "Valor total gasto: " << spent_value << std::endl << std::endl;
 }
 
 void ShoppingList::removeItem(int id) {
     for (int i = 0; i < this->items.size(); i++) {
         if (this->items[i]->getId() == id) {
-            this->items.erase(this->items.begin() + i);
+            this->items.erase(this->items.begin() + i); // remove o item da lista 
+            break; // sai do loop após encontrar e remover o item
         }
+            
     }
 }
 
 int ShoppingList::getLastId() {
-    for(Item* item : this->items) {
-        std::cout << item->getId() << std::endl;
-    }
-    if(this->items.empty()){
-        return 0;
-    } else {
-        return this->items[this->items.size() - 1]->getId();
-    }    
+    if(this->items.empty()) return 0; // retorna 0 se a lista estiver vazia
+    else return this->items[this->items.size() - 1]->getId(); // retorna o id do último item
 }

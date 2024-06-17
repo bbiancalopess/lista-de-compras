@@ -44,13 +44,6 @@ class Item {
         int getId();
 
         /**
-         * @brief Obtém o nome do item.
-         * 
-         * @return Nome do item.
-         */
-        string getName();
-
-        /**
          * @brief Obtém o preço do item.
          * 
          * @return Preço do item.
