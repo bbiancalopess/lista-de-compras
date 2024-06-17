@@ -15,4 +15,4 @@ set(SOURCES
 )
 
 # Add the executable
-add_executable(shopping_list ${SOURCES})
+add_executable(lista_de_compra ${SOURCES})
