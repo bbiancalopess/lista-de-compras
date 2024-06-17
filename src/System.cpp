@@ -3,6 +3,8 @@
 #include "ShoppingList.hpp"
 #include <string>
 #include "PerishableItem.hpp"
+#include <stdexcept>
+#include "PersonalizedException.hpp"
 
 using std::cout;
 using std::cin;
@@ -10,6 +12,17 @@ using std::string;
 using std::endl;
 using std::stod;
 using std::stoi;
+using std::invalid_argument;
+using std::cerr;
+
+#define RESET   "\033[0m"
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
 
 // obtem a entrada do usuário após exibir uma mensagem
 string getInput(string prompt) {
@@ -33,9 +46,10 @@ void System::startTheSystem() {
     while (true) {
         clearScreen(); 
         // exibe o menu de opções
-        cout << "-----------------------------------------------" << endl
-             << "---------------LISTA DE COMPRAS----------------" << endl
+        cout << YELLOW
              << "-----------------------------------------------" << endl
+             << "---------------LISTA DE COMPRAS----------------" << endl
+             << "-----------------------------------------------" << RESET << endl
              << "------------------- OPÇÕES --------------------" << endl
              << "1. Adicionar item " << endl 
              << "2. Adicionar item perecível" << endl
@@ -50,56 +64,74 @@ void System::startTheSystem() {
         }
         
         clearScreen();
-
-        if (choice == "1") {
-            // adiciona um item não perecível
-            cout << "------------------- Digite as informações do item -------------------------" << endl;
-            cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
-            string name = getInput("Digite o nome: ");
-            if(name == "0") continue;
-            string price = getInput("Digite o valor: ");
-            if(price == "0") continue;
-            string quantity = getInput("Digite a quantidade: ");
-            if(quantity == "0") continue;
-            Item* item = new Item((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity));
-            cout << shoppingList->getLastId() << endl;
-            shoppingList->addItem(item);
-            clearScreen();
-        } else if (choice == "2") {
-            // adiciona um item perecível 
-            cout << "---------------------- Digite as informações do item ----------------------" << endl;
-            cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
-            string name = getInput("Digite o nome: ");
-            if(name == "0") continue;
-            string price = getInput("Digite o valor: ");
-            if(price == "0") continue;
-            string quantity = getInput("Digite a quantidade: ");
-            if(quantity == "0") continue;
-            string expirationDate = getInput("Digite a data de validade: ");
-            if(expirationDate == "0") continue;
-            PerishableItem* perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
-            shoppingList->addItem(perishableItem);
-            clearScreen();
-        } else if (choice == "3") {
-            // exibe todos os itens na lista de compras
-            cout << "------------------------ ITENS ------------------------" << endl;
-            int spent_value = shoppingList->displayItems();
-            cout << "Valor total gasto: " << spent_value << endl;
-            cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
-            cin.get();
-            clearScreen();
-            
-        } else if (choice == "4") {
-            // remove um item da lista de compras pelo ID
-            cout << "------------------ Qual item você deseja remover? -----------------" << endl;
-            shoppingList->displayItems();
-            int item_id = stoi(getInput("Escolha uma opção ou digite '0' para voltar para o menu de opções: "));
-            if (item_id == 0) continue;
-            shoppingList->removeItem(item_id);
-            clearScreen();
-        } else {
-            cout << "------------- Opção inválida! ------------------" << endl;
-        }
+        
+            if (choice == "1") {
+                // adiciona um item não perecível
+                cout << YELLOW << "------------------- Digite as informações do item -------------------------" << RESET << endl;
+                cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
+                string name = getInput("Digite o nome: ");
+                if(name == "0") continue;
+                string price = getInput("Digite o valor: ");
+                if(price == "0") continue;
+                string quantity = getInput("Digite a quantidade: ");
+                if(quantity == "0") continue;
+                Item* item;
+                try {
+                    item = new Item((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity));
+                } catch (const PersonalizedException& err) {
+                    cerr << RED << err.what() << RESET << endl;
+                    cout << "------------- O item não foi inserido. -------------" << endl 
+                        << "-- Pressione ENTER para voltar ao menu de opções. --" << endl;
+                    cin.get();
+                    continue;
+                }
+                cout << shoppingList->getLastId() << endl;
+                shoppingList->addItem(item);
+                clearScreen();
+            } else if (choice == "2") {
+                // adiciona um item perecível 
+                cout << YELLOW << "---------------------- Digite as informações do item ----------------------" << RESET << endl;
+                cout << "-- Você pode digitar '0' em qualquer momento para voltar ao menu de opções." << endl;
+                string name = getInput("Digite o nome: ");
+                if(name == "0") continue;
+                string price = getInput("Digite o valor: ");
+                if(price == "0") continue;
+                string quantity = getInput("Digite a quantidade: ");
+                if(quantity == "0") continue;
+                string expirationDate = getInput("Digite a data de validade: ");
+                if(expirationDate == "0") continue;
+                PerishableItem* perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
+                shoppingList->addItem(perishableItem);
+                clearScreen();
+            } else if (choice == "3") {
+                // exibe todos os itens na lista de compras
+                cout << YELLOW << "------------------------ ITENS ------------------------" << RESET << endl;
+                int spent_value = shoppingList->displayItems();
+                cout << "Valor total gasto: " << spent_value << endl;
+                cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
+                cin.get();
+                clearScreen();
+                
+            } else if (choice == "4") {
+                // remove um item da lista de compras pelo ID
+                cout << YELLOW << "------------------ Qual item você deseja remover? -----------------" << RESET << endl;
+                shoppingList->displayItems();
+                int item_id = stoi(getInput("Escolha uma opção ou digite '0' para voltar para o menu de opções: "));
+                if (item_id == 0) continue;
+                try {
+                    shoppingList->removeItem(item_id);
+                } catch (const PersonalizedException& err) {
+                    cerr << RED << err.what() << RESET << endl;
+                    cout << "------------- O item não foi removido. -------------" << endl 
+                        << "-- Pressione ENTER para voltar ao menu de opções. --" << endl;
+                    cin.get();
+                    continue;
+                }
+                clearScreen();
+            } else {
+                cout << "---------------- Opção inválida! ------------------" << endl;
+            }
+        
     }
     shoppingList->~ShoppingList();
 }

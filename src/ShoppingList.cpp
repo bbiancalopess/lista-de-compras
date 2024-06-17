@@ -1,5 +1,6 @@
 #include "ShoppingList.hpp"
 #include <iostream>
+#include "PersonalizedException.hpp"
 
 ShoppingList::ShoppingList(){
     this->items = {}; // inicializa a lista como vazia
@@ -27,13 +28,15 @@ int ShoppingList::displayItems() {
 }
 
 void ShoppingList::removeItem(int id) {
+    bool found = false;
     for (int i = 0; i < this->items.size(); i++) {
         if (this->items[i]->getId() == id) {
             this->items.erase(this->items.begin() + i); // remove o item da lista 
+            found = true;
             break; // sai do loop após encontrar e remover o item
-        }
-            
+        }  
     }
+    if (!found) throw PersonalizedException("------- ID do item não encontrado na lista ---------");
 }
 
 int ShoppingList::getLastId() {

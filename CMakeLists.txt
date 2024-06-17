@@ -8,6 +8,7 @@ include_directories(includes)
 
 # Add the sources
 set(SOURCES
+    src/PersonalizedException.cpp
     src/Item.cpp
     src/PerishableItem.cpp
     src/ShoppingList.cpp
