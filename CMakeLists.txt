@@ -6,14 +6,12 @@ project(shopping_list)
 # Include directories
 include_directories(includes)
 
+file(GLOB SRC "src/*.cpp")
+
 # Add the sources
 set(SOURCES
-    src/PersonalizedException.cpp
-    src/Item.cpp
-    src/PerishableItem.cpp
-    src/ShoppingList.cpp
-    src/System.cpp
-    src/main.cpp
+    ${SRC}
+    principal/main.cpp
 )
 
 # Add the executable
