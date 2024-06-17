@@ -95,13 +95,27 @@ void System::startTheSystem() {
                 if(quantity == "0") continue;
                 string expirationDate = getInput("Digite a data de validade: ");
                 if(expirationDate == "0") continue;
-                PerishableItem* perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
+                PerishableItem* perishableItem;
+                try {
+                    perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
+                } catch (const PersonalizedException& err) {
+                    cerr << RED << err.what() << RESET << endl;
+                    cout << "------------- O item não foi inserido. -------------" << endl 
+                        << "-- Pressione ENTER para voltar ao menu de opções. --" << endl;
+                    cin.get();
+                    continue;
+                }
                 shoppingList->addItem(perishableItem);
                 clearScreen();
             } else if (choice == "3") {
                 // exibe todos os itens na lista de compras
                 cout << YELLOW << "------------------------ ITENS ------------------------" << RESET << endl;
-                int spent_value = shoppingList->displayItems();
+                int spent_value;
+                try {
+                    spent_value = shoppingList->displayItems();
+                } catch (const PersonalizedException& err) {
+                    cerr << RED << err.what() << RESET << endl;
+                }
                 cout << "Valor total gasto: " << spent_value << endl;
                 cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
                 cin.get();

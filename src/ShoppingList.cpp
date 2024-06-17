@@ -18,8 +18,8 @@ void ShoppingList::addItem(Item* item) {
 
 int ShoppingList::displayItems() {
     double spent_value = 0;
-    if (this->items.size() == 0) // verifica se a lista está vazia
-        std::cout << "Não há itens na lista." << std::endl; 
+    if (this->items.empty()) // verifica se a lista está vazia
+        throw PersonalizedException("Não há itens na lista."); 
     for (Item* item : this->items) {
         spent_value += item->getQuantity() * item->getPrice(); // incrementa o valor gasto
         item->display();
@@ -28,6 +28,7 @@ int ShoppingList::displayItems() {
 }
 
 void ShoppingList::removeItem(int id) {
+    if (id <= 0) throw PersonalizedException("----------------- ID inválido --------------------");
     bool found = false;
     for (int i = 0; i < this->items.size(); i++) {
         if (this->items[i]->getId() == id) {
