@@ -44,6 +44,13 @@ void addItemInfo(ShoppingList* shoppingList) {
     if(price == "0") return;
     string quantity = getInput("Digite a quantidade: ");
     if(quantity == "0") return;
+    if(name == "" || price == "" || quantity == "") {
+        cerr << RED << "----------- Nenhum campo pode ser vazio. -----------" << RESET << endl;
+        cout << "------------- O item não foi inserido. -------------" << endl 
+            << "-- Pressione ENTER para voltar ao menu de opções. --" << endl;
+        cin.get();
+        return;
+    }
     Item* item;
     try {
         item = new Item((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity));
@@ -69,6 +76,13 @@ void addPerishableItemInfo(ShoppingList* shoppingList) {
     if(quantity == "0") return;
     string expirationDate = getInput("Digite a data de validade: ");
     if(expirationDate == "0") return;
+    if(name == "" || price == "" || quantity == "" || expirationDate == "") {
+        cerr << RED << "----------- Nenhum campo pode ser vazio. -----------" << RESET << endl;
+        cout << "------------- O item não foi inserido. -------------" << endl 
+            << "-- Pressione ENTER para voltar ao menu de opções. --" << endl;
+        cin.get();
+        return;
+    }
     PerishableItem* perishableItem;
     try {
         perishableItem = new PerishableItem((shoppingList->getLastId() + 1), name, stod(price), stoi(quantity), expirationDate);
@@ -79,13 +93,13 @@ void addPerishableItemInfo(ShoppingList* shoppingList) {
         cin.get();
         return;
     }
-    shoppingList->addItem(perishableItem);
+    shoppingList->addPerishableItem(perishableItem);
     clearScreen();
 }
 
 void showListItemsInfo(ShoppingList* shoppingList) {
     cout << YELLOW << "------------------------ ITENS ------------------------" << RESET << endl;
-    int spent_value;
+    double spent_value;
     try {
         spent_value = shoppingList->displayItems();
     } catch (const PersonalizedException& err) {
@@ -100,9 +114,22 @@ void showListItemsInfo(ShoppingList* shoppingList) {
 
 void removeItemInfo(ShoppingList* shoppingList) {
     cout << YELLOW << "------------------ Qual item você deseja remover? -----------------" << RESET << endl;
-    shoppingList->displayItems();
-    int item_id = stoi(getInput("Escolha uma opção ou digite '0' para voltar para o menu de opções: "));
-    if (item_id == 0) return;
+    try {
+        shoppingList->displayItems();
+    } catch (const PersonalizedException& err) {
+        cerr << RED << err.what() << RESET << endl;
+        cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
+        cin.get();
+        return;
+    }
+    int item_id;
+    try {
+        item_id = stoi(getInput("Escolha uma opção ou digite '0' para voltar para o menu de opções: "));
+    } catch (const invalid_argument& err) {
+        return;
+    }
+    
+    if (item_id == 0 ) return;
     try {
         shoppingList->removeItem(item_id);
         cout << "--------------- O item foi removido. ---------------" << endl 
@@ -135,7 +162,13 @@ void showOptions() {
 void System::startTheSystemCSV() {
     ShoppingList* shoppingList = new ShoppingList();
 
-    shoppingList->getAllItemsFromCSV();
+    try {
+        shoppingList->getAllItemsFromCSV();
+    } catch (const PersonalizedException& err) {
+        cout << RED 
+        << err.what() << RESET << endl;
+    }
+    
 
     while (true) {
         clearScreen(); 

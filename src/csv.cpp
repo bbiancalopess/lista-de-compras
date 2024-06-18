@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include "csv.hpp"
+#include "PersonalizedException.hpp"
 
 using std::string;
 using std::vector;
@@ -13,14 +14,13 @@ using std::cerr;
 using std::endl;
 using std::stringstream;
 using std::ifstream;
-using std::runtime_error;
 using std::cout;
 
 void writeCSV(const string& filename, const vector<vector<string>>& data) {
     ofstream file(filename); // ofstream abre o arquivo para escrita dando a ele o nome file
     if (!file.is_open()) {
-        string err = "Unable to open file for writing: " + filename;
-        throw runtime_error(err);
+        string err = "Erro ao abrir o arquivo: " + filename;
+        throw PersonalizedException(err);
     }
 
     for (const auto& row : data) {
@@ -40,8 +40,8 @@ vector<vector<string>> readCSV(const string& filename) {
     vector<vector<string>> data;
     ifstream file(filename); // ifstream é a função que abre o arquivo para leitura dando a ele o nome file
     if (!file.is_open()) {
-        string err = "Unable to open file for reading: " + filename;
-        throw runtime_error(err);
+        string err = "Erro ao abrir o arquivo: " + filename;
+        throw PersonalizedException(err);
     }
 
     string line;

@@ -57,6 +57,8 @@ class Item {
          */
         int getQuantity();
 
+        string getName();
+
         /**
          * @brief Exibe informações do item.
          * 
