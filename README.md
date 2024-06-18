@@ -89,24 +89,5 @@ projeto-lista-compras-cpp/
     ```wsl
     $ ./lista_de_compra
 
-## Testes
-Para executar os testes seguiremos quase os mesmos passos do passo anterior:
-1. **Compilação:**
-
-   - Caso não tenha o WSL, instale-o e configure-o
-   - Após isso, acesse o WSL no diretório do projeto
-   - Então execute os seguintes comandos:
-    ```wsl
-    $ cd test
-    $ mkdir build
-    $ cd build
-    $ cmake ..
-    $ make
-
-2. **Execução:**
-   - Para executar rode o executável gerado na compilação com o comando
-    ```wsl
-    $ ./shopping_list_tests
-
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir pull requests para correções de bugs, melhorias de código, ou novas funcionalidades.

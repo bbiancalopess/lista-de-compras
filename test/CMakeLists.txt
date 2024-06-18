@@ -15,6 +15,7 @@ set(SOURCES
     test.cpp
     Item.test.cpp
     ShoppingList.test.cpp
+    csv.test.cpp
 )
 
 # Add the executable
