@@ -90,6 +90,7 @@ void showListItemsInfo(ShoppingList* shoppingList) {
         spent_value = shoppingList->displayItems();
     } catch (const PersonalizedException& err) {
         cerr << RED << err.what() << RESET << endl;
+        spent_value = 0;
     }
     cout << "Valor total gasto: R$" << spent_value << endl;
     cout << "-- Pressione ENTER para voltar para o menu de opções --" << endl;
@@ -142,7 +143,12 @@ void System::startTheSystemCSV() {
         
         string choice = getInput("Escolha uma opção: ");
 
-        int choice_int = stoi(choice);
+        int choice_int;
+        try {
+            choice_int = stoi(choice);
+        } catch (const invalid_argument& err) {
+            continue;
+        }
 
         clearScreen();
 
@@ -160,6 +166,7 @@ void System::startTheSystemCSV() {
                 removeItemInfo(shoppingList); // remove um item da lista de compras pelo ID
                 break;
             default:
+                return;
                 break;
         }        
     }
