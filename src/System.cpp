@@ -278,7 +278,6 @@ void System::startTheSystem() {
             } else {
                 cout << "---------------- Opção inválida! ------------------" << endl;
             }
-        
     }
     shoppingList->~ShoppingList();
 }
