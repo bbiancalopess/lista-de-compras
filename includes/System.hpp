@@ -14,7 +14,7 @@ class System {
          * Este método inicia o sistema e executa todas as operações necessárias
          * para inicializar o funcionamento do sistema.
          */
-        void startTheSystem();
+        void startTheSystemCSV();
 };
 
 #endif

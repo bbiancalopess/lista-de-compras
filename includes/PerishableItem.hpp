@@ -14,7 +14,7 @@ using std::string;
  */
 class PerishableItem : public Item {
 private:
-    string expirationDate;  /**< Data de validade do item perecível */
+    string expiration_date;  /**< Data de validade do item perecível */
 
 public:
     /**
@@ -24,9 +24,9 @@ public:
      * @param name Nome do item perecível.
      * @param price Preço do item perecível.
      * @param quantity Quantidade do item perecível.
-     * @param expirationDate Data de validade do item perecível.
+     * @param expiration_date Data de validade do item perecível.
      */
-    PerishableItem(const int& id, const string& name, const double& price, const int& quantity, const string& expirationDate);
+    PerishableItem(const int& id, const string& name, const double& price, const int& quantity, const string& expiration_date);
         
     /**
      * @brief Exibe informações detalhadas do item perecível.
@@ -34,6 +34,8 @@ public:
      * Este método exibe todas as informações do item, incluindo a data de validade.
      */
     void display() override;
+
+    string getExpirationDate();
 
 };
 

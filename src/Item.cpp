@@ -29,6 +29,10 @@ int Item::getQuantity() {
     return this->quantity;
 }
 
+string Item::getName() {
+    return this->name;
+}
+
 void Item::display() {
     cout <<  this->id << ". Item: " << this->name << ", Valor: R$" << this->price << ", Quantidade: " << this->quantity << endl;
 }

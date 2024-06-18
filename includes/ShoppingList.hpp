@@ -3,6 +3,7 @@
 
 #include "Item.hpp" 
 #include <vector>   
+#include "PerishableItem.hpp"
 
 using std::vector;
 
@@ -37,6 +38,8 @@ public:
      */
     void addItem(Item* item);
 
+    void addPerishableItem(PerishableItem* item);
+
     /**
      * @brief Remove um item da lista de compras pelo ID.
      * 
@@ -49,7 +52,7 @@ public:
      * 
      * @return Valor gasto na lista de compras, soma dos valores dos itens.
      */
-    int displayItems();
+    double displayItems();
 
     /**
      * @brief Obtém o último ID usado na lista de compras.
@@ -57,6 +60,8 @@ public:
      * @return Último ID usado na lista.
      */
     int getLastId();
+
+    void getAllItemsFromCSV();
 
 };
 
