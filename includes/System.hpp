@@ -15,6 +15,7 @@ class System {
          * para inicializar o funcionamento do sistema.
          */
         void startTheSystem();
+        void startTheSystemCSV();
 };
 
 #endif

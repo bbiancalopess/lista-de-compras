@@ -1,8 +1,9 @@
 #include "System.hpp"
+#include "ShoppingList.hpp"
 
 int main() {
     System* sistema;
-    sistema->startTheSystem();
+    sistema->startTheSystemCSV();
 
     return 0;
 }

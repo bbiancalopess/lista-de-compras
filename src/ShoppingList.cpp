@@ -1,6 +1,9 @@
 #include "ShoppingList.hpp"
 #include <iostream>
 #include "PersonalizedException.hpp"
+#include "csv.hpp"
+#include "PerishableItem.hpp"
+#include <typeinfo>
 
 ShoppingList::ShoppingList(){
     this->items = {}; // inicializa a lista como vazia
@@ -43,4 +46,28 @@ void ShoppingList::removeItem(int id) {
 int ShoppingList::getLastId() {
     if(this->items.empty()) return 0; // retorna 0 se a lista estiver vazia
     else return this->items[this->items.size() - 1]->getId(); // retorna o id do último item
+}
+
+void ShoppingList::getAllItemsFromCSV() {
+    vector<vector<string>> data = readCSV("../csv/items.csv");
+    data.erase(data.begin()); // apaga a primeira linha da tabela, a linha dos títulos das colunas
+
+    if(!data.empty()) {
+        for (const auto& item : data) {
+            int id = stoi(item[0]);
+            string name = item[1];
+            double price = stod(item[2]);
+            int quantity = stoi(item[3]);
+            string expiration_date = item[4];
+            int item_type = stoi(item[5]);
+
+            if (item_type == 1) {
+                Item* new_item = new Item(id, name, price, quantity);
+                this->items.push_back(new_item);
+            } else if (item_type == 2) {
+                Item* new_item = new PerishableItem(id, name, price, quantity, expiration_date);
+                this->items.push_back(new_item);
+            }
+        }
+    }
 }

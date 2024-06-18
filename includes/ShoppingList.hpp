@@ -58,6 +58,8 @@ public:
      */
     int getLastId();
 
+    void getAllItemsFromCSV();
+
 };
 
 #endif 
