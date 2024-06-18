@@ -205,8 +205,7 @@ void System::startTheSystemCSV() {
     }
     shoppingList->~ShoppingList();
 }
-/*
-void System::startTheSystem() {
+
     ShoppingList* shoppingList = new ShoppingList();
 
     while (true) {
@@ -314,4 +313,3 @@ void System::startTheSystem() {
     }
     shoppingList->~ShoppingList();
 }
-*/
