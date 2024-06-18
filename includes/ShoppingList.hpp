@@ -61,6 +61,9 @@ public:
      */
     int getLastId();
 
+    /**
+     * @brief Obtém todos os itens da lista do csv e cria-os no sistema.
+     */
     void getAllItemsFromCSV();
 
 };

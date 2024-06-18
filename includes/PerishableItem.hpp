@@ -35,6 +35,11 @@ public:
      */
     void display() override;
 
+    /**
+     * @brief Obtém a data de validade do item.
+     * 
+     * @return Data de validade do item.
+     */
     string getExpirationDate();
 
 };

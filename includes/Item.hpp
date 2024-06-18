@@ -57,6 +57,11 @@ class Item {
          */
         int getQuantity();
 
+        /**
+         * @brief Obtém o nome do item.
+         * 
+         * @return Nome do item.
+         */
         string getName();
 
         /**
