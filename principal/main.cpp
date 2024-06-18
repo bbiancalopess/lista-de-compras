@@ -3,7 +3,7 @@
 
 int main() {
     System* sistema;
-    sistema->startTheSystemCSV();
+    sistema->startTheSystem();
 
     return 0;
 }

@@ -1,3 +1,5 @@
 id,name,price,quantity,expiration_date,item_type
 2,leite,2.500000,3,24/12/2024,2
 3,banana,3.000000,1,,1
+4,ovos,3.000000,1,24/12/2024,2
+5,maçã,2.500000,2,,1
