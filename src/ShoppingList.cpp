@@ -24,7 +24,6 @@ int ShoppingList::displayItems() {
         spent_value += item->getQuantity() * item->getPrice(); // incrementa o valor gasto
         item->display();
     }
-    std::cout << spent_value << std::endl;
     return spent_value;
 }
 
