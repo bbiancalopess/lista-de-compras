@@ -30,5 +30,5 @@ int Item::getQuantity() {
 }
 
 void Item::display() {
-    cout <<  this->id << ". Item: " << this->name << ", Valor: " << this->price << ", Quantidade: " << this->quantity << endl;
+    cout <<  this->id << ". Item: " << this->name << ", Valor: R$" << this->price << ", Quantidade: " << this->quantity << endl;
 }

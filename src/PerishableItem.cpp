@@ -8,6 +8,6 @@ PerishableItem::PerishableItem(const int& id, const string& name, const double& 
     : Item(id, name, price, quantity), expirationDate(expirationDate) {}
 
 void PerishableItem::display() {
-    cout << this->id << ". Item perecível: " << this->name << ", Valor: " << this->price << ", Quantidade: " << this->quantity 
+    cout << this->id << ". Item perecível: " << this->name << ", Valor: R$" << this->price << ", Quantidade: " << this->quantity 
               << ", Data de validade: " << this->expirationDate << endl;
 }
