@@ -1,6 +1,6 @@
 # Lista de Compras em C++
 
-Este é um projeto simples de uma aplicação de lista de compras em C++, utilizando conceitos de programação orientada a objetos. A aplicação permite adicionar itens simples e itens perecíveis, exibir a lista de itens, remover itens e calcular o valor total gasto.
+Este é um projeto simples de uma aplicação de lista de compras em C++, utilizando conceitos de programação orientada a objetos. A aplicação permite adicionar itens simples e itens perecíveis, exibir a lista de itens, remover itens e calcular o valor total gasto. Algo legal do projeto é a possibilidade de manter os itens da sua lista sempre salvos. Mesmo após fechar e recompilar o programa, sua lista não será apagada!
 
 ## Funcionalidades
 
@@ -74,11 +74,16 @@ projeto-lista-compras-cpp/
 ## Como Compilar e Executar
 
 1. **Compilação:**
+   
+   - Clone o repositório com o comando
+   ```
+   git clone https://github.com/bbiancalopess/lista-de-compras
 
+   ``` 
    - Caso não tenha o WSL, instale-o e configure-o
    - Após isso, acesse o WSL no diretório do projeto
    - Então execute os seguintes comandos:
-    ```wsl
+    ```
     $ mkdir build
     $ cd build
     $ cmake ..
@@ -86,7 +91,7 @@ projeto-lista-compras-cpp/
 
 2. **Execução:**
    - Para executar rode o executável gerado na compilação com o comando
-    ```wsl
+    ```
     $ ./lista_de_compra
 
 ## Contribuição
